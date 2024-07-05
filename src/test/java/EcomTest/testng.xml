@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="EcomApiTestSuite">
+    <test name="EcomApiTests">
+        <parameter name="userEmail" value="bhushan@19yahoo.in" />
+        <parameter name="userPassword" value="BhushanQA1@" />
+        <parameter name="productName" value="Test Product" />
+        <parameter name="productCategory" value="Electronics" />
+        <parameter name="productSubCategory" value="Mobile" />
+        <parameter name="productPrice" value="999" />
+        <parameter name="productDescription" value="Test Description" />
+        <parameter name="productFor" value="all" />
+        <parameter name="country" value="British Indian Ocean Territory" />
+        <classes>
+            <class name="EcomApiNew" />
+        </classes>
+    </test>
+</suite>

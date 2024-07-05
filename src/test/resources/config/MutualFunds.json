@@ -1,0 +1,55 @@
+{
+  "fundName": "Global Equity Fund",
+  "fundManager": {
+    "name": "Bhushan Lala",
+    "experience": 15,
+    "fundsManaged": [
+      {
+        "name": "Tech Growth Fund",
+        "inceptionDate": "2010-06-15",
+        "assetsUnderManagement": 1200000000,
+        "performance": {
+          "yearly": [
+            {"year": 2020, "return": 15.5},
+            {"year": 2021, "return": 18.3},
+            {"year": 2022, "return": -5.2},
+            {"year": 2023, "return": 5.1}
+          ]
+        }
+      },
+      {
+        "name": "Healthcare Value Fund",
+        "inceptionDate": "2015-04-20",
+        "assetsUnderManagement": 800000000,
+        "performance": {
+          "yearly": [
+            {"year": 2020, "return": 12.0},
+            {"year": 2021, "return": 14.5},
+            {"year": 2022, "return": 2.1},
+            {"year": 2023, "return": 8.25}
+          ]
+        }
+      },
+      {
+        "name": "Hybrid Fund",
+        "inceptionDate": "2015-04-01",
+        "assetsUnderManagement": 70000000,
+        "performance": {
+          "yearly": [
+            {"year": 2020, "return": 10.2},
+            {"year": 2021, "return": 12.5},
+            {"year": 2022, "return": 24.1},
+            {"year": 2023, "return": 8.1}
+          ]
+        }
+      }
+    ]
+  },
+  
+  "fundDetails": {
+    "category": "Equity",
+    "inceptionDate": "2005-09-12",
+    "netAssetValue": 35.67,
+    "expenseRatio": 0.75
+  }
+}

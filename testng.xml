@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="RESTAssuredTest.sample.MyFirstTest"/>
+      <class name="RESTAssuredTest.sample.VideoGameTests"/>
+      <class name="EcomTest.EcomApiNew"/>
+      <class name="RESTAssuredTest.sample.GPathJSONTests"/>
+      <class name="com.udemy.RESTAssured.JiraApiTests"/>
+      <class name="com.udemy.RESTAssured.libraryDemo"/>
+      <class name="RESTAssuredTest.TestREST2"/>
+      <class name="RESTAssuredTest.TestREST1"/>
+      <class name="com.udemy.RESTAssured.EcomApiTest"/>
+      <class name="com.udemy.RESTAssured.testDemo"/>
+      <class name="RESTAssuredTest.sample.FootballTest"/>
+      <class name="RESTAssuredTest.QueryParam"/>
+      <class name="RESTAssuredTest.RestAssuredAPITest2"/>
+      <class name="RESTAssuredTest.RestAssuredAPITest1_Get"/>
+      <class name="com.udemy.RESTAssured.userAPITest"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

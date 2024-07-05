@@ -1,0 +1,73 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "category",
+        "id",
+        "name",
+        "rating",
+        "releaseDate",
+        "reviewScore"
+    ],
+    "properties": {
+        "category": {
+            "type": "string",
+            "default": "",
+            "title": "The category Schema",
+            "examples": [
+                "Puzzle"
+            ]
+        },
+        "id": {
+            "type": "integer",
+            "default": 0,
+            "title": "The id Schema",
+            "examples": [
+                3
+            ]
+        },
+        "name": {
+            "type": "string",
+            "default": "",
+            "title": "The name Schema",
+            "examples": [
+                "Tetris"
+            ]
+        },
+        "rating": {
+            "type": "string",
+            "default": "",
+            "title": "The rating Schema",
+            "examples": [
+                "Global"
+            ]
+        },
+        "releaseDate": {
+            "type": "string",
+            "default": "",
+            "title": "The releaseDate Schema",
+            "examples": [
+                "2024-06-11 11:11:11"
+            ]
+        },
+        "reviewScore": {
+            "type": "integer",
+            "default": 0,
+            "title": "The reviewScore Schema",
+            "examples": [
+                87
+            ]
+        }
+    },
+    "examples": [{
+        "category": "Puzzle",
+        "id": 3,
+        "name": "Tetris",
+        "rating": "Global",
+        "releaseDate": "2024-06-11 11:11:11",
+        "reviewScore": 87
+    }]
+}

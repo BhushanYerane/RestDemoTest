@@ -1,0 +1,147 @@
+{
+  "MajorTopics": [
+    {
+      "topic": "Equity Markets",
+      "subtopics": [
+        "Stock Exchanges",
+        "Initial Public Offerings (IPOs)",
+        "Secondary Markets"
+      ]
+    },
+    {
+      "topic": "Debt Markets",
+      "subtopics": [
+        "Bonds",
+        "Treasury Bills",
+        "Corporate Debt"
+      ]
+    },
+    {
+      "topic": "Derivatives Markets",
+      "subtopics": [
+        "Futures",
+        "Options",
+        "Swaps"
+      ]
+    },
+    {
+      "topic": "Commodities Markets",
+      "subtopics": [
+        "Precious Metals",
+        "Energy Commodities",
+        "Agricultural Commodities"
+      ]
+    },
+    {
+      "topic": "Foreign Exchange Markets",
+      "subtopics": [
+        "Currency Pairs",
+        "Exchange Rates",
+        "Forex Trading"
+      ]
+    },
+    {
+      "topic": "Regulatory Frameworks",
+      "subtopics": [
+        "Securities and Exchange Commission (SEC)",
+        "Financial Industry Regulatory Authority (FINRA)",
+        "Dodd-Frank Act"
+      ]
+    },
+    {
+      "topic": "Investment Strategies",
+      "subtopics": [
+        "Value Investing",
+        "Growth Investing",
+        "Index Investing"
+      ]
+    },
+    {
+      "topic": "Market Participants",
+      "subtopics": [
+        "Retail Investors",
+        "Institutional Investors",
+        "Market Makers"
+      ]
+    },
+    {
+      "topic": "Financial Instruments",
+      "subtopics": [
+        "Stocks",
+        "Bonds",
+        "Mutual Funds",
+        "Exchange-Traded Funds (ETFs)"
+      ]
+    },
+    {
+      "topic": "Market Analysis Techniques",
+      "subtopics": [
+        "Technical Analysis",
+        "Fundamental Analysis",
+        "Quantitative Analysis"
+      ]
+    },
+    {
+      "topic": "Risk Management",
+      "subtopics": [
+        "Hedging",
+        "Portfolio Diversification",
+        "Credit Risk"
+      ]
+    },
+    {
+      "topic": "Corporate Finance",
+      "subtopics": [
+        "Capital Structure",
+        "Cost of Capital",
+        "Dividend Policy"
+      ]
+    },
+    {
+      "topic": "Market Efficiency",
+      "subtopics": [
+        "Efficient Market Hypothesis (EMH)",
+        "Market Anomalies",
+        "Behavioral Finance"
+      ]
+    },
+    {
+      "topic": "Global Capital Markets",
+      "subtopics": [
+        "Emerging Markets",
+        "Developed Markets",
+        "International Investing"
+      ]
+    },
+    {
+      "topic": "Financial Crises",
+      "subtopics": [
+        "2008 Financial Crisis",
+        "Dot-com Bubble",
+        "Asian Financial Crisis"
+      ]
+    }
+  ],
+  "KeyTerms": [
+    "Arbitrage",
+    "Bid-Ask Spread",
+    "Bull and Bear Markets",
+    "Capital Gains",
+    "Credit Rating Agencies",
+    "Dividend Yield",
+    "Earnings Per Share (EPS)",
+    "Hedge Funds",
+    "Index Funds",
+    "Initial Coin Offering (ICO)",
+    "Interest Rate Risk",
+    "Liquidity",
+    "Market Capitalization",
+    "Order Types (Market Order, Limit Order)",
+    "Price-Earnings Ratio (P/E Ratio)",
+    "Sovereign Debt",
+    "Short Selling",
+    "Yield Curve",
+    "Volatility",
+    "Underwriting"
+  ]
+}
