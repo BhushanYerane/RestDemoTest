@@ -1,0 +1,2428 @@
+SQL Resources --
+---------
+DDL: CREATE, ALTER TABLE, DROP, TRUNCATE, and ADD COLUMN
+DML: UPDATE, DELETE, and INSERT
+DCL: GRANT and REVOKE
+TCL: COMMIT, SET TRANSACTION, ROLLBACK, and SAVEPOINT
+DQL: – SELECT
+
+SQL String Function link - https://www.geeksforgeeks.org/sql-string-functions/?ref=next_article
+
+SQL Numeric Function 
+https://www.geeksforgeeks.org/sql-numeric-functions/?ref=next_article
+
+----------------------=====================
+Constraint Data
+SQL NOT NULL Constraint
+CREATE TABLE table_Name
+(column1 data_type(size) NOT NULL,
+ column2 data_type(size) NOT NULL, …
+);
+
+SQL | UNIQUE Constraint
+CREATE TABLE table_name (
+ column1 datatype UNIQUE,
+ column2 datatype, …);
+SELECT table.ID
+FROM  table
+WHERE UNIQUE (SELECT table2.ID
+              FROM table2
+              WHERE table.ID = table2.ID);
+
+The SQL statement without a UNIQUE --
+SELECT table.ID
+FROM  table
+WHERE 1 <= (SELECT count(table2.ID)
+              FROM table2
+              WHERE table.ID = table2.ID);
+
+SQL PRIMARY KEY Constraint
+SQL primary key syntax with CREATE TABLE
+CREATE TABLE table_name (
+column1 datatype constraint,
+column2 datatype constraint,.…,
+CONSTRAINT pk_constraint_name PRIMARY KEY (column1, column2, …));
+
+SQL primary key syntax with ALTER TABLE
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name PRIMARY KEY (column1, column2, … column_n); 
+
+DROP PRIMARY KEY IN SQL --
+ALTER TABLE table_name DROP PRIMARY KEY;
+
+SQL Foreign Key Constraint 0---?
+SQL FOREIGN KEY on CREATE TABLE -->
+CREATE TABLE table_name (
+column1 datatype,
+column2 datatype,…,
+CONSTRAINT fk_constraint_name FOREIGN KEY (column1, column2, …)
+REFERENCES parent_table(column1, column2, …));
+
+SQL FOREIGN KEY on ALTER TABLE --?
+ALTER TABLE table_name
+ADD CONSTRAINT fk_constraint_name FOREIGN KEY (column1, column2, …)
+REFERENCES parent_table(column1, column2, …);
+ 
+SQL DROP FOREIGN KEY ---?
+ALTER TABLE table_name DROP CONSTRAINT fk_name;
+
+Also check these points --?
+Alternate Key
+Composit Key
+Candidate key
+Check Constraint
+Default Constraint
+----------------------=====================
+Database Functions
+CREATE DATABASE database_name;
+
+CREATE TABLE Table_name(
+col_1 TYPE col_1_constraint,
+col_2 TYPE col_2 constraint
+.....);
+col: Column name
+TYPE: Data type whether an integer, variable character, etc.
+col_constraint: Constraints in SQL like PRIMARY KEY, NOT NULL, UNIQUE, REFERENCES, etc.
+
+INSERT INTO Table_name
+VALUES(val_1, val_2, val_3, ..........);
+val: Values in particular column.
+
+SELECT * FROM Table_name
+
+	• To take last record
+
+	SELECT col_name(s) FROM Table_Name
+ORDER BY appr_col_name DESC
+LIMIT 1;
+	col_name(s): The name of the column(s).
+appr_col_name: Appropriate column name to perform ORDER BY.
+	• By using subquery
+	SELECT col_name(s) FROM Table_Name
+WHERE appr_col_name = (
+        SELECT MAX(appr_col_name)
+        FROM Table_Name);
+	col_name(s): The name of the column(s).
+appr_col_name: Appropriate column name. For example ID.
+	• By comparative or relative approach
+	SELECT col_name(s) FROM Table_Name t1
+WHERE NOT EXISTS(
+    SELECT * FROM Table_Name t2
+    WHERE t2.appr_col_name > t1.appr_col_name);
+	col_name(s): The name of the column(s).
+appr_col_name: Appropriate column name. For example ID.
+	1. Select value by RANDOM
+SELECT col_1,col_2, ... FROM Table_Name
+ORDER BY RAND()
+
+	1. Select IN
+SELECT column1, column2….columnN
+FROM table_name
+WHERE column_name IN (val-1, val-2,…val-N);
+
+SELECT column1, column2….columnN FROM table_name1
+WHERE column_name IN 
+(SELECT column_name FROM table_name2);
+
+Insert into tabel
+	1. INSERT INTO table_name
+	VALUES (value1, value2, value); 
+	2. INSERT INTO table_name (column1, column2, column3) 
+	VALUES ( value1, value2, value);
+	3. INSERT INTO table_name(Column1,Column2,Column3,…….) 
+	VALUES (Value1, Value2,Value3,…..),
+	        (Value1, Value2,Value3,…..),
+	         (Value1, Value2,Value3,…..),
+	         ……………………….. ;
+Insert into select statement
+1 copy all column
+	A. INSERT INTO first_table SELECT * FROM second_table;
+	B. INSERT INTO first_table(names_of_columns1) 
+	SELECT names_of_columns2 FROM second_table; 
+Copy Specific Rows 
+INSERT INTO table1 SELECT * FROM table2 WHERE condition; 
+
+Update the table
+UPDATE table_name SET column1 = value1, column2 = value2,… 
+WHERE condition;
+
+Where condition statement
+SELECT column1,column2 FROM table_name WHERE column_name operator value;
+
+Between
+SELECT column1,column2 FROM table_name WHERE column_name BETWEEN value1 AND value2;
+
+Like
+SELECT column1,column2 FROMtable_name WHERE column_name LIKE pattern;
+
+IN
+SELECT column1,column2 FROM table_name WHERE column_name IN (value1,value2,..);
+
+
+Having Clause
+SELECT col_1, function_name(col_2) FROM tablename
+WHERE condition GROUP BY column1, column2 HAVING Condition
+ORDER BY column1, column2;
+
+Order by Column
+ORDER BY Column_Number asc/desc
+
+Group By
+SELECT column1, function_name(column2) FROM table_name
+WHERE condition
+GROUP BY column1, column2
+ORDER BY column1, column2;
+
+If user want to add new column and update that column with different value then use following
+
+ALTER TABLE your_table ADD new_column_name datatype; 
+UPDATE your_table SET new_column_name = 
+CASE 
+	WHEN condition1 THEN value1 
+	WHEN condition2 THEN value2 
+	ELSE default_value 
+END;
+
+Eg - WHEN id = 2 THEN 200 
+	 ELSE 0
+
+Update column name :
+ALTER TABLE table_name
+RENAME COLUMN old_name to new_name;
+	
+SQL LIMIT OFFSET
+SELECT * FROM table_name ORDER BY column_name LIMIT X OFFSET Y;
+Or--
+SELECT * FROM table_name ORDER BY column_name LIMIT X,Y;
+
+CREATE VIEW view_name AS
+SELECT column1, column2.....
+FROM table_name
+WHERE condition;
+
+Select * from view_name;
+
+LISTING ALL VIEWS IN A DATABASE
+
+USE "database_name";
+SHOW FULL TABLES WHERE table_type LIKE "%VIEW";
+
+SELECT table_name
+FROM information_schema.views
+WHERE table_schema = 'database_name';
+
+OR
+
+SELECT table_schema, table_name, view_definition
+FROM information_schema.views
+WHERE table_schema = 'database_name'; 
+
+DROP VIEW view_name;
+
+UPDATE VIEW in SQL --?
+UPDATE view_name
+SET column1 = value1, column2 = value2...., columnN = valueN
+WHERE [condition];
+
+Note: Not all views can be updated using the UPDATE statement.
+
+
+CREATE OR REPLACE VIEW --?
+CREATE OR REPLACE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+----------------------=====================
+Types of JOIN in SQL
+	• INNER JOIN
+	• LEFT JOIN
+	• RIGHT JOIN
+	• FULL JOIN
+	• NATURAL JOIN 
+
+The syntax for SQL INNER JOIN is: --?
+SELECT table1.column1,table1.column2,table2.column1,....
+FROM table1 
+INNER JOIN table2
+ON table1.matching_column = table2.matching_column;
+
+The syntax of LEFT JOIN in SQL is:--?
+SELECT table1.column1,table1.column2,table2.column1,....
+FROM table1 
+LEFT JOIN table2
+ON table1.matching_column = table2.matching_column;
+
+The syntax of RIGHT JOIN in SQL is: ---?
+SELECT table1.column1,table1.column2,table2.column1,....
+FROM table1 
+RIGHT JOIN table2
+ON table1.matching_column = table2.matching_column;
+
+The syntax of SQL FULL JOIN is: ---?
+SELECT table1.column1,table1.column2,table2.column1,....
+FROM table1 FULL JOIN table2 ON 
+table1.matching_column = table2.matching_column;
+
+Inner join
+SELECT columnsc FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+Cross Join 
+Select * from table1 CROSS join table2
+
+Update Table1 Inner join table2 on t1.col1=t2.col2
+SET t1.col1=t2.col2
+
+Delete table1 FROM table1 JOIN table2
+ON table1.attribute_name = table2.attribute_name
+WHERE condition
+----------------------=====================
+SQL Operators
+SQL AND & OR
+SELECT * FROM table_name WHERE condition1 AND condition2 and …condition;
+
+SELECT * FROM table_name WHERE condition1 OR condition2 OR… conditionN;
+
+LIKE operator
+SELECT column1, column2, … FROM table_name WHERE columnN LIKE pattern;
+
+Syntax of the IN operator
+SELECT column_name FROM table_name
+WHERE condition IN (condition_value1, condition_value2 …..);
+
+SQL NOT Operator
+SELECT column1, colomn2, … FROM table_name WHERE NOT condition; 
+
+SQL NOT EQUAL Syntax
+SELECT * FROM table_name WHERE column_name != value;
+
+SQL Is Null Operators
+SELECT * FROM table_name WHERE column_name IS NULL;
+
+SQL UNION Operator
+SELECT columnnames FROM table1
+UNION
+SELECT columnnames FROM table2;
+
+SELECT columnnames FROM table1
+UNION ALL
+SELECT columnnames FROM table2;
+
+SQL | Except Clause
+Select col1,col2.. From tbl1 Except select col1,col2,… from tbl2
+
+To retain duplicates, we must explicitly write EXCEPTALL instead of EXCEPT.
+
+
+BETWEEN Operator in SQL
+WHERE column_name BETWEEN value1 AND value2;
+
+ALL with SELECT Statement:
+SELECT ALL field_name FROM table_name WHERE condition(s);
+
+ALL with WHERE or HAVING Statement:
+SELECT column_name(s) FROM table_name WHERE column_name comparison_operator 
+ALL (SELECT column_name FROM table_name WHERE condition(s));
+
+Syntax for ANY
+SELECT column_name(s) FROM table_name
+WHERE column_name comparison_operator 
+ANY (SELECT column_name FROM table_name WHERE condition(s));
+
+SQL | INTERSECT Clause
+SELECT column1 , column2 …. FROM table_names WHERE condition
+INTERSECT
+SELECT column1 , column2 …. FROM table_names WHERE condition
+
+SQL | EXISTS
+SELECT column_name(s) FROM table_name WHERE 
+EXISTS 
+  (SELECT column_name(s) FROM table_name WHERE condition);
+
+SQL COUNT(), AVG() and SUM() --?>
+SELECT COUNT(column_name) FROM table_name WHERE condition;
+
+SELECT AVG(column_name) FROM table_name WHERE condition;
+
+SELECT SUM(column_name) FROM table_name WHERE condition;
+
+SQL MIN() and MAX()--?>
+SELECT MIN(column_name) FROM table_name WHERE condition;
+
+SELECT MAX(column_name) FROM table_name WHERE condition;
+
+SELECT * FROM table_name WHERE condition1 AND (condition2 OR condition3);
+
+Like
+% (Percent): Represents zero or more characters.
+_ (Underscore): Represents a single character.
+[] (Square Brackets): Represents any single character within brackets.
+– (Hyphen): Specify a range of characters inside brackets.
+
+CASE Statement in SQL --?>
+CASE case_value
+WHEN condition THEN result1
+WHEN condition THEN result2
+…
+Else result
+END CASE;
+----------------------=====================
+Selenium
+src
+|-- main
+|   |-- java
+|       |-- pages
+|       |   |-- LoginPage.java
+|       |   |-- HomePage.java
+|       |-- tests
+|           |-- LoginTest.java
+|-- test
+|   |-- java
+|       |-- TestRunner.java
+|-- pom.xml
+
+---==
+
+XML --?
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.0.0</version>
+</dependency>
+
+Packages --?
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+Set up driver path --?
+System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+System.setProperty("webdriver.gecko.driver", "path/to/geckodriver");
+System.setProperty("webdriver.edge.driver", "path/to/msedgedriver");
+
+Initialize webdriver --?
+WebDriver driver = new ChromeDriver();
+// For Firefox
+// WebDriver driver = new FirefoxDriver();
+// For Edge
+// Wer = new EdgeDriver();
+
+Open web page --?
+driver.get("https://www.example.com");
+
+Maximize and Minimize the browser --?
+driver.manage().window().maximize();
+driver.manage().window().minimize();
+
+Get page title --?
+String title = driver.getTitle();
+System.out.println("Page Title: " + title);
+
+Get current url --?
+String title = driver.getTitle();
+System.out.println("Page Title: " + title);
+
+Find elements in HTML page --?
+// By ID -- WebElement elementById = driver.findElement(By.id("elementId"));
+// By Name -- WebElement elementByName = driver.findElement(By.name("elementName"));
+// By Class Name -- WebElement elementByClassName = driver.findElement(By.className("elementClassName"));
+// By Tag Name -- WebElement elementByTagName = driver.findElement(By.tagName("elementTagName"));
+// By CSS Selector --WebElement elementByCss = driver.findElement(By.cssSelector("cssSelector"));
+// By Xpath -- WebElement elementByXPath = driver.findElement(By.xpath("xpathExpression"));
+
+Interact with webElement --?
+// Click an element -- elementById.click();
+// Send keys to an element -- elementById.sendKeys("text to enter");
+// Clear an element -- elementById.clear();
+// Submit a form -- elementById.submit();
+
+GetElement Attribute and text --?
+// Get attribute value -- String attributeValue = elementById.getAttribute("attributeName");
+// Get element text -- String elementText = elementById.getText();
+
+Waits for element --?
+// Explicit Wait
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("elementId")));
+// Implicit Wait
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//Fluent wait
+ FluentWait<WebDriver> wait = new FluentWait<(driver)
+					.withTimeout(Duration.ofSeconds(30))
+						.pollingEvery(Duration.ofSeconds(5))
+							.ignoring(NoSuchElementException.class);
+
+Handling Alert
+// Switch to alert   --  Alert alert = driver.switchTo().alert();
+// Accept alert   --  alert.accept();
+// Dismiss alert  --  alert.dismiss();
+// Get alert text  --  String alertText = alert.getText();
+
+Navigation Cmd
+// Navigate to a different URL  -- driver.navigate().to("https://www.example.com");
+// Refresh the page  -- driver.navigate().refresh();
+// Navigate back -- driver.navigate().back();
+// Navigate forward  -- driver.navigate().forward();
+
+Handling multiple windows
+// Get current window handle
+String currentWindow = driver.getWindowHandle();
+
+// Switch to a new window
+for (String windowHandle : driver.getWindowHandles()) {
+    driver.switchTo().window(windowHandle);
+}
+
+// Switch back to the original window
+driver.switchTo().window(currentWindow);
+
+Handing Frames
+// Switch to a frame by index
+driver.switchTo().frame(0);
+
+// Switch to a frame by name or ID
+driver.switchTo().frame("frameName");
+
+// Switch to a frame by WebElement
+WebElement frameElement = driver.findElement(By.tagName("iframe"));
+driver.switchTo().frame(frameElement);
+
+// Switch back to the default content
+driver.switchTo().defaultContent();
+
+Cookies
+// Add a cookie
+Cookie cookie = new Cookie("name", "value");
+driver.manage().addCookie(cookie);
+
+// Get a cookie
+Cookie retrievedCookie = driver.manage().getCookieNamed("name");
+
+// Delete a cookie
+driver.manage().deleteCookieNamed("name");
+
+// Get all cookies
+Set<Cookie> allCookies = driver.manage().getCookies();
+
+Close and quit 
+// Close the current window   -- driver.close();
+// Quit the browser  -- driver.quit();
+-------------------------------
+There are five types of CSS Selectors in Selenium tests:
+1. ID
+2. Class
+3. Attribute
+4. Sub-String
+5. Inner String
+ 
+A. ID --> in console (tagnm#<value>)
+driver.findElement(By.cssSelector(“<tagname>#<id value>”));
+driver.findElement(By.cssSelector(“#<id value>”));
+driver.findElement(By.cssSelector(“<tagname>[id=’<id value>’]”));
+B. Class -->  in console (tagnm.<value>)
+driver.findElement(By.cssSelector(“<tagname>.<class value>”));
+driver.findElement(By.cssSelector(“.<class value>”));
+driver.findElement(By.cssSelector(“<tagname>[class=’<class value>’]”));
+C. Attribute --> in console (tagnm[para='value'])
+driver.findElement(By.cssSelector(“<tagname>[href=’<href value>’]”));
+1. Combining Attributes
+	Id and attribute example:
+	driver.findElement(By.cssSelector(“<tagname>#<id value>[href=’<href value>’]”));
+	Class and attribute Example:
+	driver.findElement(By.cssSelector(“<tagname>.<class value>[href=’<href value>’]”));
+D. Sub-String --> in console (a[param*='value'])
+Matching a prefix (Starts with: ^)
+driver.findElement(By.cssSelector(“<tagname>[<attribute>^=’prefix of the string’]”));
+Matching a suffix (Ends with: $)
+driver.findElement(By.cssSelector(“<tagname>[<attribute>$=’suffix of the string’]”));
+Matching a substring (contains: *)
+driver.findElement(By.cssSelector(“<tagname>[<attribute>*=’substring’]”));
+------------------
+	1. Setting Browser Name and Platform
+	DesiredCapabilities capabilities = new DesiredCapabilities();
+	capabilities.setBrowserName("firefox");
+	capabilities.setPlatform(Platform.WINDOWS);
+	WebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+	2. Handling SSL Certificates
+	DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+	capabilities.setCapability("acceptSslCerts", true);
+	WebDriver driver = new ChromeDriver(capabilities);
+	3. Using Proxy Settings
+	import org.openqa.selenium.Proxy;
+	
+	Proxy proxy = new Proxy();
+	proxy.setHttpProxy("myhttpproxy:3337");
+	DesiredCapabilities capabilities = new DesiredCapabilities();
+	capabilities.setCapability("proxy", proxy);
+	WebDriver driver = new ChromeDriver(capabilities);
+	4. Setting Up Remote WebDriver for Selenium Grid
+	DesiredCapabilities capabilities = new DesiredCapabilities();
+	capabilities.setBrowserName("chrome");
+	capabilities.setPlatform(Platform.WINDOWS);
+	WebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+	
+	Transition to Options Classes (the use of DesiredCapabilities is being deprecated in favor of the more specific Options classes for each browser)
+	ChromeOptions options = new ChromeOptions(); // Set the desired options options.addArguments("--start-maximized"); options.setAcceptInsecureCerts(true); 
+	WebDriver driver = new ChromeDriver(options);
+	
+	FirefoxOptions options = new FirefoxOptions(); // Set the desired options options.setAcceptInsecureCerts(true); // Initialize WebDriver with FirefoxOptions WebDriver driver = new FirefoxDriver(options);
+
+----------------------=====================
+API Karate / REST Assured
+REST
+src
+├── main
+│   └── java
+│       └── com
+│           └── example
+│               └── restassuredcucumber
+│                   └── App.java (if needed)
+└── test
+    ├── java
+    │   └── com
+    │       └── example
+    │           └── restassuredcucumber
+    │               ├── steps
+    │               │   └── UserSteps.java
+    │               └── runners
+    │                   └── TestRunner.java
+    └── resources
+        └── features
+            └── UserApiTests.feature
+
+Karate is a versatile testing framework that allows for testing various types of APIs and endpoints. Here are the kinds of APIs you can test using Karate:
+
+### 1. **RESTful APIs**
+RESTful APIs are one of the most common types of APIs tested with Karate. These APIs use HTTP methods such as GET, POST, PUT, DELETE, etc., to interact with resources. 
+
+**Example:**
+```gherkin
+Feature: Test REST API
+
+  Scenario: GET request to fetch user details
+    Given url 'https://jsonplaceholder.typicode.com/users/1'
+    When method get
+    Then status 200
+    And match response.username == 'Bret'
+
+  Scenario: POST request to create a new user
+    Given url 'https://jsonplaceholder.typicode.com/users'
+    And request { name: 'John Doe', username: 'johndoe', email: 'john.doe@example.com' }
+    When method post
+    Then status 201
+    And match response.name == 'John Doe'
+```
+
+### 2. **SOAP APIs**
+Karate can also be used to test SOAP web services. SOAP APIs are based on XML messaging protocols.
+
+**Example:**
+```gherkin
+Feature: Test SOAP API
+
+  Scenario: SOAP request to get user details
+    Given url 'http://www.example.com/soap-service'
+    And request
+    """
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.example.com/webservices/">
+       <soapenv:Header/>
+       <soapenv:Body>
+          <web:GetUserDetailsRequest>
+             <web:UserId>1</web:UserId>
+          </web:GetUserDetailsRequest>
+       </soapenv:Body>
+    </soapenv:Envelope>
+    """
+    When method post
+    Then status 200
+    And match response //web:GetUserDetailsResponse/web:User/web:Username == 'Bret'
+```
+
+### 3. **GraphQL APIs**
+Karate supports GraphQL APIs, which use a single endpoint for querying data and allow for more flexible queries compared to REST.
+
+**Example:**
+```gherkin
+Feature: Test GraphQL API
+
+  Scenario: GraphQL query to fetch user details
+    Given url 'https://graphql.example.com'
+    And request { query: "{ user(id: 1) { id, name, username, email } }" }
+    When method post
+    Then status 200
+    And match response.data.user.username == 'Bret'
+```
+
+### 4. **Database Testing**
+Karate can also interact with databases through JDBC to perform database testing. This involves executing SQL queries to verify data integrity and correctness.
+
+**Example:**
+```gherkin
+Feature: Database Operations
+
+  Background:
+    * def DbUtils = Java.type('examples.karate.DbUtils')
+
+  Scenario: Update database and verify data
+    Given def updateQuery = 'UPDATE users SET name = "John Doe" WHERE id = 1'
+    When def updateResult = DbUtils.executeUpdate(updateQuery)
+    Then assert updateResult == 1
+
+    Given def selectQuery = 'SELECT * FROM users WHERE id = 1'
+    When def result = DbUtils.executeQuery(selectQuery)
+    Then assert result != null
+    And assert result.name == 'John Doe'
+    And assert result.id == 1
+```
+
+### 5. **File Upload/Download APIs**
+Karate can handle file upload and download scenarios which are common in many applications.
+
+**Example:**
+```gherkin
+Feature: Test File Upload API
+
+  Scenario: Upload a file
+    Given url 'https://api.example.com/upload'
+    And multipart file file = { read: 'classpath:examples/karate/test.pdf', filename: 'test.pdf', contentType: 'application/pdf' }
+    When method post
+    Then status 200
+    And match response.message == 'File uploaded successfully'
+```
+
+### 6. **Mock Services**
+Karate provides capabilities to create mock services for testing APIs in isolation, which is especially useful for testing in the absence of a live backend.
+
+**Example:**
+```gherkin
+Feature: Mock API
+
+  Scenario: Mock endpoint for user data
+    Given path '/users/1'
+    When method get
+    Then status 200
+    And response
+    """
+    {
+      "id": 1,
+      "name": "John Doe",
+      "username": "johndoe",
+      "email": "john.doe@example.com"
+    }
+    """
+```
+
+### Conclusion
+
+Karate is a powerful testing framework that supports a wide range of API types and testing scenarios. Whether you are dealing with REST, SOAP, GraphQL, databases, file uploads, or mock services, Karate provides a comprehensive and straightforward way to automate your tests. This flexibility makes it an excellent choice for API testing across various projects and use cases.
+
+Karate and Gatling are both powerful tools used for different types of testing. Karate is typically used for API testing, while Gatling is used for performance and load testing. However, Karate has introduced performance testing capabilities with the `Karate-Gatling` integration, allowing users to leverage Gatling’s powerful performance testing features using Karate scripts.
+
+### Step 1: Setup Your Project
+
+You need to set up your project with the necessary dependencies. Here’s an example using Maven.
+
+#### Maven (`pom.xml`):
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>karate-gatling-example</artifactId>
+    <version>1.0.0</version>
+    <dependencies>
+        <!-- Karate dependencies -->
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-apache</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-junit5</artifactId>
+            <version>1.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Gatling dependencies -->
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <version>3.7.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-app</artifactId>
+            <version>3.7.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-gatling</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+### Step 2: Write a Karate Feature File
+
+Create a Karate feature file that defines your API interactions. This file will be used by Gatling to simulate load.
+
+#### `login.feature`
+
+```gherkin
+Feature: User Login
+
+  Background:
+    * url 'https://jsonplaceholder.typicode.com'
+
+  Scenario: Successful login
+    Given path 'users/1'
+    When method get
+    Then status 200
+    And match response.username == 'Bret'
+```
+
+### Step 3: Create Gatling Simulation Class
+
+Write a Gatling simulation class to use the Karate feature file for performance testing.
+
+#### `LoginSimulation.scala`
+
+```scala
+import com.intuit.karate.gatling.PreDef._
+import io.gatling.core.Predef._
+import scala.concurrent.duration._
+
+class LoginSimulation extends Simulation {
+
+  val protocol = karateProtocol()
+
+  val login = scenario("Login Scenario").exec(karateFeature("classpath:login.feature"))
+
+  setUp(
+    login.inject(
+      atOnceUsers(10), // 10 users at once
+      rampUsers(100) during (30 seconds) // ramp up to 100 users over 30 seconds
+    ).protocols(protocol)
+  )
+}
+```
+
+### Step 4: Running the Simulation
+
+Run the simulation using the Gatling runner. Ensure you have the necessary Gatling infrastructure in place.
+
+#### Using Maven:
+
+```bash
+mvn gatling:test
+```
+
+### Explanation:
+
+- **Karate Feature File**: The `login.feature` file contains the scenario you want to test, in this case, a simple login scenario.
+- **Gatling Simulation Class**: `LoginSimulation.scala` defines the load simulation. It uses Gatling DSL to define the number of users and the duration of the test.
+  - `karateProtocol()`: Sets up the Karate protocol.
+  - `karateFeature("classpath:login.feature")`: Specifies the Karate feature file to use.
+  - `atOnceUsers(10)`: Simulates 10 users at once.
+  - `rampUsers(100) during (30 seconds)`: Gradually increases the number of users to 100 over 30 seconds.
+
+### Summary
+
+This setup allows you to leverage Karate’s powerful API testing capabilities and Gatling’s performance testing features. You define your test scenarios in Karate and then use Gatling to simulate load on these scenarios, providing a comprehensive solution for performance testing your APIs.
+
+-----------------------------------------------------
+Sure! I'll provide an example of a comprehensive setup that includes GET, POST, PUT, and DELETE operations using a RESTful API and how to perform performance testing with Karate and Gatling.
+
+### Step 1: Setup Your Project
+
+Ensure you have the necessary dependencies in your `pom.xml`.
+
+#### Maven (`pom.xml`):
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>karate-gatling-example</artifactId>
+    <version>1.0.0</version>
+    <dependencies>
+        <!-- Karate dependencies -->
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-apache</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-junit5</artifactId>
+            <version>1.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Gatling dependencies -->
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <version>3.7.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-app</artifactId>
+            <version>3.7.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-gatling</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+### Step 2: Write Karate Feature Files
+
+Create Karate feature files for each HTTP method: GET, POST, PUT, and DELETE.
+
+#### getUser.feature
+
+```gherkin
+Feature: Get User
+
+  Background:
+    * url 'https://jsonplaceholder.typicode.com'
+
+  Scenario: Get user by ID
+    Given path 'users/1'
+    When method get
+    Then status 200
+    And match response.username == 'Bret'
+```
+
+#### createUser.feature
+
+```gherkin
+Feature: Create User
+
+  Background:
+    * url 'https://jsonplaceholder.typicode.com'
+
+  Scenario: Create a new user
+    Given path 'users'
+    And request { name: 'John Doe', username: 'johndoe', email: 'john.doe@example.com' }
+    When method post
+    Then status 201
+    And match response.name == 'John Doe'
+    And match response.username == 'johndoe'
+    And match response.email == 'john.doe@example.com'
+```
+
+#### updateUser.feature
+
+```gherkin
+Feature: Update User
+
+  Background:
+    * url 'https://jsonplaceholder.typicode.com'
+
+  Scenario: Update user by ID
+    Given path 'users/1'
+    And request { name: 'John Doe Updated', username: 'johndoeupdated', email: 'john.doe.updated@example.com' }
+    When method put
+    Then status 200
+    And match response.name == 'John Doe Updated'
+    And match response.username == 'johndoeupdated'
+    And match response.email == 'john.doe.updated@example.com'
+```
+
+#### deleteUser.feature
+
+```gherkin
+Feature: Delete User
+
+  Background:
+    * url 'https://jsonplaceholder.typicode.com'
+
+  Scenario: Delete user by ID
+    Given path 'users/1'
+    When method delete
+    Then status 200
+```
+
+### Step 3: Create Gatling Simulation Classes
+
+Create a Gatling simulation class for each feature file to simulate load.
+
+#### GetUserSimulation.scala
+
+```scala
+import com.intuit.karate.gatling.PreDef._
+import io.gatling.core.Predef._
+import scala.concurrent.duration._
+
+class GetUserSimulation extends Simulation {
+
+  val protocol = karateProtocol()
+
+  val getUser = scenario("Get User Scenario").exec(karateFeature("classpath:getUser.feature"))
+
+  setUp(
+    getUser.inject(
+      atOnceUsers(10),
+      rampUsers(100) during (30 seconds)
+    ).protocols(protocol)
+  )
+}
+```
+
+#### CreateUserSimulation.scala
+
+```scala
+import com.intuit.karate.gatling.PreDef._
+import io.gatling.core.Predef._
+import scala.concurrent.duration._
+
+class CreateUserSimulation extends Simulation {
+
+  val protocol = karateProtocol()
+
+  val createUser = scenario("Create User Scenario").exec(karateFeature("classpath:createUser.feature"))
+
+  setUp(
+    createUser.inject(
+      atOnceUsers(10),
+      rampUsers(100) during (30 seconds)
+    ).protocols(protocol)
+  )
+}
+```
+
+#### UpdateUserSimulation.scala
+
+```scala
+import com.intuit.karate.gatling.PreDef._
+import io.gatling.core.Predef._
+import scala.concurrent.duration._
+
+class UpdateUserSimulation extends Simulation {
+
+  val protocol = karateProtocol()
+
+  val updateUser = scenario("Update User Scenario").exec(karateFeature("classpath:updateUser.feature"))
+
+  setUp(
+    updateUser.inject(
+      atOnceUsers(10),
+      rampUsers(100) during (30 seconds)
+    ).protocols(protocol)
+  )
+}
+```
+
+#### DeleteUserSimulation.scala
+
+```scala
+import com.intuit.karate.gatling.PreDef._
+import io.gatling.core.Predef._
+import scala.concurrent.duration._
+
+class DeleteUserSimulation extends Simulation {
+
+  val protocol = karateProtocol()
+
+  val deleteUser = scenario("Delete User Scenario").exec(karateFeature("classpath:deleteUser.feature"))
+
+  setUp(
+    deleteUser.inject(
+      atOnceUsers(10),
+      rampUsers(100) during (30 seconds)
+    ).protocols(protocol)
+  )
+}
+```
+
+### Step 4: Running the Simulations
+
+To run the simulations, ensure your project is correctly set up and the necessary dependencies are included.
+
+#### Using Maven:
+
+```bash
+mvn gatling:test
+```
+
+Make sure you specify the simulation class you want to run.
+
+### Summary
+
+This setup covers:
+
+- **GET Operation**: `getUser.feature` to fetch user details.
+- **POST Operation**: `createUser.feature` to create a new user.
+- **PUT Operation**: `updateUser.feature` to update user details.
+- **DELETE Operation**: `deleteUser.feature` to delete a user.
+
+Each of these feature files is tied to a Gatling simulation class that specifies the load and performance testing parameters. This comprehensive approach allows you to test different CRUD operations with performance simulations using Karate and Gatling.
+
+-----------------------------===============================
+The GIT and GitHub
+Sure! Below is a list of common Git and GitHub commands along with explanations and examples for practice. This will help you get started with version control using Git and collaborating on projects using GitHub.
+
+### Git Commands
+
+#### 1. **git init**
+- **Description**: Initializes a new Git repository.
+- **Example**:
+    ```sh
+    git init
+    ```
+
+#### 2. **git clone**
+- **Description**: Clones an existing repository from a URL.
+- **Example**:
+    ```sh
+    git clone https://github.com/username/repo.git
+    ```
+
+#### 3. **git status**
+- **Description**: Shows the status of the working directory and staging area.
+- **Example**:
+    ```sh
+    git status
+    ```
+
+#### 4. **git add**
+- **Description**: Adds files to the staging area.
+- **Example**:
+    ```sh
+    git add filename
+    git add .
+    ```
+
+#### 5. **git commit**
+- **Description**: Records changes to the repository with a message.
+- **Example**:
+    ```sh
+    git commit -m "Commit message"
+    ```
+
+#### 6. **git push**
+- **Description**: Uploads local repository content to a remote repository.
+- **Example**:
+    ```sh
+    git push origin main
+    ```
+
+#### 7. **git pull**
+- **Description**: Fetches and merges changes from the remote repository.
+- **Example**:
+    ```sh
+    git pull origin main
+    ```
+
+#### 8. **git branch**
+- **Description**: Lists, creates, or deletes branches.
+- **Example**:
+    ```sh
+    git branch
+    git branch new-branch
+    git branch -d old-branch
+    ```
+
+#### 9. **git checkout**
+- **Description**: Switches to a different branch or restores files.
+- **Example**:
+    ```sh
+    git checkout main
+    git checkout -b new-branch
+    ```
+
+#### 10. **git merge**
+- **Description**: Merges branches into the current branch.
+- **Example**:
+    ```sh
+    git merge feature-branch
+    ```
+
+#### 11. **git fetch**
+- **Description**: Downloads objects and refs from another repository.
+- **Example**:
+    ```sh
+    git fetch origin
+    ```
+
+#### 12. **git log**
+- **Description**: Shows the commit history.
+- **Example**:
+    ```sh
+    git log
+    ```
+
+#### 13. **git reset**
+- **Description**: Resets the current HEAD to a specified state.
+- **Example**:
+    ```sh
+    git reset --hard HEAD~1
+    ```
+
+#### 14. **git revert**
+- **Description**: Reverts a previous commit.
+- **Example**:
+    ```sh
+    git revert <commit-hash>
+    ```
+
+#### 15. **git stash**
+- **Description**: Stashes changes in the working directory.
+- **Example**:
+    ```sh
+    git stash
+    git stash apply
+    ```
+
+### GitHub Commands
+
+#### 1. **Creating a Repository on GitHub**
+- **Description**: Steps to create a new repository on GitHub.
+- **Example**:
+    1. Go to [GitHub](https://github.com).
+    2. Click on the `New` button next to your repositories list.
+    3. Fill out the repository name and description.
+    4. Choose the visibility (public or private).
+    5. Click `Create repository`.
+
+#### 2. **git remote**
+- **Description**: Manages set of tracked repositories.
+- **Example**:
+    ```sh
+    git remote add origin https://github.com/username/repo.git
+    git remote -v
+    ```
+
+#### 3. **Forking a Repository**
+- **Description**: Creates a personal copy of someone else's repository on GitHub.
+- **Example**:
+    1. Go to the repository page.
+    2. Click on the `Fork` button at the top right.
+
+#### 4. **Creating a Pull Request**
+- **Description**: Submits changes to be merged into the original repository.
+- **Example**:
+    1. Push your branch to your forked repository.
+    2. Go to the original repository and click `New pull request`.
+    3. Select your fork and branch to compare changes.
+    4. Click `Create pull request`.
+
+#### 5. **Cloning a GitHub Repository**
+- **Description**: Uses `git clone` to copy a repository from GitHub.
+- **Example**:
+    ```sh
+    git clone https://github.com/username/repo.git
+    ```
+
+### Examples for Practice
+
+1. **Initialize a Git repository**:
+    ```sh
+    mkdir my-project
+    cd my-project
+    git init
+    ```
+
+2. **Create a file and commit it**:
+    ```sh
+    echo "Hello, Git!" > hello.txt
+    git add hello.txt
+    git commit -m "Add hello.txt"
+    ```
+
+3. **Push to a GitHub repository**:
+    ```sh
+    git remote add origin https://github.com/username/repo.git
+    git push -u origin main
+    ```
+
+4. **Create and switch to a new branch**:
+    ```sh
+    git checkout -b new-feature
+    echo "New feature" > feature.txt
+    git add feature.txt
+    git commit -m "Add new feature"
+    git push origin new-feature
+    ```
+
+5. **Merge a branch**:
+    ```sh
+    git checkout main
+    git merge new-feature
+    git push origin main
+    ```
+
+These commands and examples cover many common tasks you'll encounter while using Git and GitHub. Happy coding!
+------------------------========================
+Here is a list of common programming languages along with their file extensions, as well as a list of various other file formats and their extensions.
+
+### Programming Languages and Extensions
+
+- **Assembly Language**: `.asm`, `.s`
+- **Bash**: `.sh`
+- **Batch**: `.bat`, `.cmd`
+- **C**: `.c`
+- **C++**: `.cpp`, `.cc`, `.cxx`, `.h`, `.hpp`
+- **C#**: `.cs`
+- **Clojure**: `.clj`
+- **COBOL**: `.cob`, `.cbl`
+- **CoffeeScript**: `.coffee`
+- **Crystal**: `.cr`
+- **D**: `.d`
+- **Dart**: `.dart`
+- **Elixir**: `.ex`, `.exs`
+- **Erlang**: `.erl`
+- **F#**: `.fs`, `.fsi`, `.fsx`
+- **Fortran**: `.f`, `.for`, `.f90`
+- **Go**: `.go`
+- **Groovy**: `.groovy`, `.gvy`, `.gy`, `.gsh`
+- **Haskell**: `.hs`
+- **HTML**: `.html`, `.htm`
+- **Java**: `.java`
+- **JavaScript**: `.js`
+- **Julia**: `.jl`
+- **Kotlin**: `.kt`, `.kts`
+- **Lua**: `.lua`
+- **MATLAB**: `.m`
+- **Objective-C**: `.m`, `.mm`
+- **OCaml**: `.ml`, `.mli`
+- **Pascal**: `.pas`
+- **Perl**: `.pl`, `.pm`
+- **PHP**: `.php`, `.phtml`, `.php3`, `.php4`, `.php5`, `.php7`, `.phps`
+- **PowerShell**: `.ps1`
+- **Python**: `.py`
+- **R**: `.r`
+- **Ruby**: `.rb`
+- **Rust**: `.rs`
+- **Scala**: `.scala`
+- **Scheme**: `.scm`, `.ss`
+- **Shell Script**: `.sh`
+- **Smalltalk**: `.st`
+- **Swift**: `.swift`
+- **TypeScript**: `.ts`
+- **VBScript**: `.vbs`
+- **VHDL**: `.vhd`, `.vhdl`
+- **Visual Basic**: `.vb`
+- **XML**: `.xml`
+- **YAML**: `.yaml`, `.yml`
+
+### Other File Formats and Extensions
+
+#### Document Files
+- **Microsoft Word**: `.doc`, `.docx`
+- **Microsoft Excel**: `.xls`, `.xlsx`
+- **Microsoft PowerPoint**: `.ppt`, `.pptx`
+- **PDF**: `.pdf`
+- **Plain Text**: `.txt`
+- **Rich Text Format (RTF)**: `.rtf`
+- **OpenDocument Text (ODT)**: `.odt`
+- **OpenDocument Spreadsheet (ODS)**: `.ods`
+- **OpenDocument Presentation (ODP)**: `.odp`
+- **Markdown**: `.md`
+
+#### Image Files
+- **JPEG**: `.jpg`, `.jpeg`
+- **PNG**: `.png`
+- **GIF**: `.gif`
+- **Bitmap**: `.bmp`
+- **TIFF**: `.tif`, `.tiff`
+- **SVG**: `.svg`
+- **ICO**: `.ico`
+
+#### Audio Files
+- **MP3**: `.mp3`
+- **WAV**: `.wav`
+- **OGG**: `.ogg`
+- **FLAC**: `.flac`
+- **AAC**: `.aac`
+- **MIDI**: `.mid`, `.midi`
+
+#### Video Files
+- **MP4**: `.mp4`
+- **AVI**: `.avi`
+- **MKV**: `.mkv`
+- **MOV**: `.mov`
+- **WMV**: `.wmv`
+- **FLV**: `.flv`
+
+#### Compressed Files
+- **ZIP**: `.zip`
+- **RAR**: `.rar`
+- **7-Zip**: `.7z`
+- **GZIP**: `.gz`
+- **TAR**: `.tar`
+- **BZ2**: `.bz2`
+
+#### Data Files
+- **CSV**: `.csv`
+- **JSON**: `.json`
+- **XML**: `.xml`
+- **YAML**: `.yaml`, `.yml`
+- **SQL**: `.sql`
+
+#### Configuration Files
+- **INI**: `.ini`
+- **CFG**: `.cfg`
+- **CONF**: `.conf`
+
+#### Web Files
+- **HTML**: `.html`, `.htm`
+- **CSS**: `.css`
+- **JavaScript**: `.js`
+- **PHP**: `.php`
+
+#### System Files
+- **Executable File**: `.exe`
+- **DLL**: `.dll`
+- **Batch File**: `.bat`
+- **Shell Script**: `.sh`
+- **Log File**: `.log`
+
+This list covers many common file extensions, but it's not exhaustive. If you need more specific information about a particular file type or extension, feel free to ask!
+
+
+
+-----------------------------================================
+Capital Markets
+
+Certainly! Here are some major topics and key terms related to capital markets that you can research further:
+
+### Major Topics:
+1. **Equity Markets**
+   - **Stock Exchanges**
+   - **Initial Public Offerings (IPOs)**
+   - **Secondary Markets**
+
+2. **Debt Markets**
+   - **Bonds**
+   - **Treasury Bills**
+   - **Corporate Debt**
+
+3. **Derivatives Markets**
+   - **Futures**
+   - **Options**
+   - **Swaps**
+
+4. **Commodities Markets**
+   - **Precious Metals**
+   - **Energy Commodities**
+   - **Agricultural Commodities**
+
+5. **Foreign Exchange Markets**
+   - **Currency Pairs**
+   - **Exchange Rates**
+   - **Forex Trading**
+
+6. **Regulatory Frameworks**
+   - **Securities and Exchange Commission (SEC)**
+   - **Financial Industry Regulatory Authority (FINRA)**
+   - **Dodd-Frank Act**
+
+7. **Investment Strategies**
+   - **Value Investing**
+   - **Growth Investing**
+   - **Index Investing**
+
+8. **Market Participants**
+   - **Retail Investors**
+   - **Institutional Investors**
+   - **Market Makers**
+
+9. **Financial Instruments**
+   - **Stocks**
+   - **Bonds**
+   - **Mutual Funds**
+   - **Exchange-Traded Funds (ETFs)**
+
+10. **Market Analysis Techniques**
+    - **Technical Analysis**
+    - **Fundamental Analysis**
+    - **Quantitative Analysis**
+
+11. **Risk Management**
+    - **Hedging**
+    - **Portfolio Diversification**
+    - **Credit Risk**
+
+12. **Corporate Finance**
+    - **Capital Structure**
+    - **Cost of Capital**
+    - **Dividend Policy**
+
+13. **Market Efficiency**
+    - **Efficient Market Hypothesis (EMH)**
+    - **Market Anomalies**
+    - **Behavioral Finance**
+
+14. **Global Capital Markets**
+    - **Emerging Markets**
+    - **Developed Markets**
+    - **International Investing**
+
+15. **Financial Crises**
+    - **2008 Financial Crisis**
+    - **Dot-com Bubble**
+    - **Asian Financial Crisis**
+
+### Key Terms:
+1. **Arbitrage**
+2. **Bid-Ask Spread**
+3. **Bull and Bear Markets**
+4. **Capital Gains**
+5. **Credit Rating Agencies**
+6. **Dividend Yield**
+7. **Earnings Per Share (EPS)**
+8. **Hedge Funds**
+9. **Index Funds**
+10. **Initial Coin Offering (ICO)**
+11. **Interest Rate Risk**
+12. **Liquidity**
+13. **Market Capitalization**
+14. **Order Types (Market Order, Limit Order)**
+15. **Price-Earnings Ratio (P/E Ratio)**
+16. **Sovereign Debt**
+17. **Short Selling**
+18. **Yield Curve**
+19. **Volatility**
+20. **Underwriting**
+
+These topics and terms provide a broad overview of the various aspects of capital markets. Researching these areas will give you a comprehensive understanding of how capital markets function, the instruments traded, the participants involved, and the regulatory environment governing these markets.
+
+Researching major topics and terms in capital markets can provide valuable insights into various aspects of finance and investment. Here are some key topics and terms to explore further:
+
+1. **Stock Market**:
+   - Market Indices (e.g., S&P 500, Dow Jones Industrial Average)
+   - Stock Exchanges (e.g., NYSE, NASDAQ)
+   - Stock Trading Strategies (e.g., Day Trading, Value Investing)
+
+2. **Bond Market**:
+   - Types of Bonds (e.g., Government Bonds, Corporate Bonds)
+   - Bond Yields and Prices
+   - Bond Credit Ratings (e.g., Moody's, S&P, Fitch)
+
+3. **Derivatives**:
+   - Futures Contracts
+   - Options Trading
+   - Swaps and Forward Contracts
+
+4. **Investment Vehicles**:
+   - Mutual Funds
+   - Exchange-Traded Funds (ETFs)
+   - Hedge Funds
+
+5. **Financial Analysis**:
+   - Fundamental Analysis
+   - Technical Analysis
+   - Ratios and Metrics (e.g., P/E Ratio, Debt-to-Equity Ratio)
+
+6. **Market Regulation**:
+   - Securities and Exchange Commission (SEC)
+   - Regulatory Compliance
+   - Insider Trading Laws
+
+7. **Financial Instruments**:
+   - Equities (Stocks)
+   - Fixed-Income Securities (Bonds)
+   - Commodities and Precious Metals
+
+8. **Market Trends and Strategies**:
+   - Market Cycles (e.g., Bull Market, Bear Market)
+   - Market Volatility
+   - Investment Diversification Strategies
+
+9. **Risk Management**:
+   - Portfolio Management
+   - Asset Allocation
+   - Risk Assessment and Mitigation Strategies
+
+10. **Global Financial Markets**:
+    - International Stock Exchanges
+    - Foreign Exchange (Forex) Market
+    - Global Economic Indicators (e.g., GDP, Inflation Rate)
+
+11. **Financial Technology (FinTech)**:
+    - Online Trading Platforms
+    - Robo-Advisors
+    - Blockchain and Cryptocurrencies
+
+12. **Corporate Finance**:
+    - Capital Structure
+    - Mergers and Acquisitions
+    - Corporate Governance
+
+13. **Behavioral Finance**:
+    - Investor Psychology
+    - Market Sentiment
+    - Behavioral Biases (e.g., Loss Aversion, Herd Mentality)
+
+14. **Economic Indicators**:
+    - Interest Rates
+    - Inflation Rates
+    - Unemployment Rates
+
+15. **Ethical and Socially Responsible Investing (ESG)**:
+    - Environmental, Social, and Governance Factors
+    - Impact Investing
+    - Sustainable Investment Strategies
+
+Exploring these topics and terms in greater detail can deepen your understanding of capital markets and enhance your knowledge of finance and investment principles.
+
+Certainly! Here are some major topics and key terms in capital markets that are important for research:
+
+### Major Topics in Capital Markets:
+
+1. **Equity Markets**
+   - Stock Exchanges
+   - Initial Public Offerings (IPOs)
+   - Secondary Markets
+   - Stock Indices
+
+2. **Debt Markets**
+   - Bonds
+   - Corporate Bonds
+   - Government Securities
+   - Municipal Bonds
+
+3. **Derivatives Markets**
+   - Futures
+   - Options
+   - Swaps
+   - Forwards
+
+4. **Foreign Exchange Markets**
+   - Currency Trading
+   - Exchange Rates
+   - Forex Markets
+   - Currency Futures and Options
+
+5. **Commodities Markets**
+   - Commodity Futures
+   - Precious Metals
+   - Energy Commodities
+   - Agricultural Commodities
+
+6. **Market Participants**
+   - Institutional Investors
+   - Retail Investors
+   - Market Makers
+   - Brokers and Dealers
+
+7. **Market Regulation**
+   - Securities and Exchange Commission (SEC)
+   - Financial Industry Regulatory Authority (FINRA)
+   - Market Surveillance
+   - Insider Trading Laws
+
+8. **Investment Strategies**
+   - Value Investing
+   - Growth Investing
+   - Index Investing
+   - Quantitative Investing
+
+9. **Portfolio Management**
+   - Asset Allocation
+   - Risk Management
+   - Performance Measurement
+   - Diversification
+
+10. **Financial Instruments**
+    - Stocks
+    - Bonds
+    - Mutual Funds
+    - Exchange-Traded Funds (ETFs)
+
+11. **Market Analysis**
+    - Technical Analysis
+    - Fundamental Analysis
+    - Sentiment Analysis
+    - Quantitative Analysis
+
+12. **Corporate Actions**
+    - Dividends
+    - Stock Splits
+    - Mergers and Acquisitions
+    - Buybacks
+
+13. **Economic Indicators**
+    - Gross Domestic Product (GDP)
+    - Inflation Rates
+    - Interest Rates
+    - Employment Data
+
+14. **Risk Management**
+    - Hedging Strategies
+    - Value at Risk (VaR)
+    - Credit Risk
+    - Market Risk
+
+15. **Global Capital Markets**
+    - Emerging Markets
+    - Developed Markets
+    - Cross-Border Trading
+    - Global Financial Crises
+
+16. **Sustainable Investing**
+    - Environmental, Social, and Governance (ESG) Criteria
+    - Impact Investing
+    - Socially Responsible Investing (SRI)
+    - Green Bonds
+
+17. **Technology in Capital Markets**
+    - High-Frequency Trading
+    - Blockchain and Cryptocurrencies
+    - Financial Technology (FinTech)
+    - Algorithmic Trading
+
+18. **Behavioral Finance**
+    - Market Psychology
+    - Behavioral Biases
+    - Investor Sentiment
+    - Herding Behavior
+
+### Key Terms:
+
+1. **Volatility**
+2. **Liquidity**
+3. **Market Capitalization**
+4. **Yield**
+5. **Price-to-Earnings Ratio (P/E Ratio)**
+6. **Dividend Yield**
+7. **Capital Gains**
+8. **Interest Rate Risk**
+9. **Credit Rating**
+10. **Debt-to-Equity Ratio**
+11. **Beta**
+12. **Alpha**
+13. **Sharpe Ratio**
+14. **Derivative Contract**
+15. **Hedge Fund**
+16. **Initial Margin**
+17. **Maintenance Margin**
+18. **Margin Call**
+19. **Order Book**
+20. **Dark Pool**
+
+Researching these topics and terms will give you a comprehensive understanding of capital markets and their various components.
+
+https://www.intuition.com/the-lifecycle-of-a-trade-5-key-stages/
+
+https://www.nseindia.com/learn/self-study-ncfm-modules-all
+
+
+
+The NCFM (NSE's Certification in Financial Markets) Capital Market module is an important certification for individuals looking to understand the operations and regulations of the Indian capital market. Here’s an overview of what the certification entails and what you can expect:
+
+### Overview of NCFM Capital Market Module
+The NCFM Capital Market module is designed to provide candidates with a comprehensive understanding of the financial markets, focusing on the Indian capital market. The certification is beneficial for finance professionals, investors, and anyone interested in capital markets.
+
+### Key Topics Covered
+1. **Introduction to Capital Markets**: Understanding the structure, functions, and participants in the capital market.
+2. **Primary and Secondary Markets**: Differences between primary and secondary markets, process of issuing securities, and trading mechanisms.
+3. **Market Regulations**: Key regulations governing the capital markets, including the role of SEBI (Securities and Exchange Board of India).
+4. **Trading Systems**: Detailed knowledge of trading, clearing, and settlement processes.
+5. **Risk Management**: Understanding risk management practices in the capital markets.
+6. **Investment and Analysis**: Basic concepts of investment, types of securities, and fundamental analysis techniques.
+
+### Exam Details
+- **Format**: Multiple choice questions (MCQs).
+- **Duration**: Typically 120 minutes.
+- **Passing Criteria**: A specific passing score, usually around 60-70%.
+- **Validity**: The certification usually remains valid for a specified period (often 5 years).
+
+### Benefits of Certification
+- **Career Advancement**: Helps in gaining a competitive edge in the financial sector.
+- **Knowledge Enhancement**: Provides a solid foundation in capital market operations and regulations.
+- **Professional Recognition**: Recognized by employers and financial institutions as a credible certification.
+
+### Preparation Tips
+1. **Study Materials**: Utilize the official study materials provided by NSE.
+2. **Practice Tests**: Take practice tests to familiarize yourself with the exam format and types of questions.
+3. **Online Resources**: Make use of online resources and forums for additional study materials and tips from past candidates.
+4. **Stay Updated**: Keep abreast of the latest developments and changes in the capital markets.
+
+### Resources
+- **NSE India Website**: For official details, study materials, and registration.
+- **Books and Guides**: Various books are available that cover the syllabus comprehensively.
+- **Online Courses**: Platforms like Coursera, Udemy, and others may offer courses tailored to the NCFM Capital Market module.
+
+By preparing thoroughly and understanding the core concepts, you can successfully clear the NCFM Capital Market module and enhance your expertise in the financial markets.
+
+Sure! Here are some major topics and key terms related to mutual funds that are important for research:
+
+### Major Topics in Mutual Funds:
+
+1. **Types of Mutual Funds**
+   - Equity Funds
+   - Debt Funds
+   - Hybrid Funds
+   - Money Market Funds
+   - Index Funds
+   - Sectoral/Thematic Funds
+   - Fund of Funds (FoF)
+
+2. **Mutual Fund Structure**
+   - Open-Ended Funds
+   - Closed-Ended Funds
+   - Interval Funds
+
+3. **Investment Strategies**
+   - Active Management
+   - Passive Management
+   - Growth Investing
+   - Value Investing
+   - Income Investing
+
+4. **Fund Performance Metrics**
+   - Net Asset Value (NAV)
+   - Expense Ratio
+   - Alpha
+   - Beta
+   - Sharpe Ratio
+   - Standard Deviation
+
+5. **Regulation and Compliance**
+   - Securities and Exchange Commission (SEC) Regulations
+   - Mutual Fund Prospectus
+   - Fund Governance
+   - Compliance and Reporting Standards
+
+6. **Mutual Fund Operations**
+   - Fund Management
+   - Asset Allocation
+   - Diversification
+   - Rebalancing
+   - Redemption and Purchase Processes
+
+7. **Costs and Fees**
+   - Management Fees
+   - Load Fees (Front-End Load, Back-End Load)
+   - No-Load Funds
+   - 12b-1 Fees
+   - Transaction Costs
+
+8. **Tax Implications**
+   - Capital Gains Distribution
+   - Dividend Income
+   - Tax-Deferred Accounts (IRAs, 401(k)s)
+   - Tax-Efficient Investing
+
+9. **Risk Management**
+   - Market Risk
+   - Credit Risk
+   - Interest Rate Risk
+   - Liquidity Risk
+   - Risk-Adjusted Returns
+
+10. **Global Mutual Funds**
+    - International and Global Funds
+    - Emerging Market Funds
+    - Currency Risk
+    - Geopolitical Risk
+
+11. **Investor Behavior**
+    - Behavioral Finance in Mutual Fund Investment
+    - Investor Sentiment
+    - Herd Behavior
+    - Market Timing
+
+12. **Technology and Mutual Funds**
+    - Robo-Advisors
+    - Digital Platforms for Mutual Fund Investment
+    - Use of AI and Big Data in Fund Management
+    - Blockchain and Mutual Funds
+
+13. **Fund Ratings and Research**
+    - Morningstar Ratings
+    - Lipper Ratings
+    - Fund Fact Sheets
+    - Analyst Reports
+
+14. **Sustainable and Ethical Investing**
+    - Environmental, Social, and Governance (ESG) Funds
+    - Socially Responsible Investing (SRI)
+    - Impact Investing
+    - Green Funds
+
+15. **Historical Performance and Trends**
+    - Long-Term vs. Short-Term Performance
+    - Market Trends Impacting Mutual Funds
+    - Economic Indicators and Mutual Fund Performance
+
+### Key Terms:
+
+1. **Net Asset Value (NAV)**
+2. **Expense Ratio**
+3. **Load**
+4. **No-Load Fund**
+5. **Turnover Ratio**
+6. **Yield**
+7. **Prospectus**
+8. **Redemption**
+9. **Systematic Investment Plan (SIP)**
+10. **Systematic Withdrawal Plan (SWP)**
+11. **Total Return**
+12. **Benchmark**
+13. **Distribution**
+14. **Asset Under Management (AUM)**
+15. **Custodian**
+16. **Transfer Agent**
+17. **Fund Manager**
+18. **Dividend Reinvestment Plan (DRIP)**
+19. **Exchange-Traded Fund (ETF)**
+20. **Unit Investment Trust (UIT)**
+21. **Performance Benchmark**
+22. **Sector Allocation**
+23. **Bond Ratings**
+24. **Credit Rating Agencies**
+25. **Duration**
+26. **Liquidity**
+27. **Capital Gains**
+28. **Dividend Yield**
+29. **Growth and Income Fund**
+30. **Market Capitalization**
+
+Researching these topics and terms will provide a comprehensive understanding of mutual funds and their various components.
+
+A Capital Markets Business Analyst in the software industry typically focuses on developing, implementing, and maintaining software solutions tailored for capital markets, which include equities, bonds, commodities, and derivatives. This role requires a combination of financial knowledge and technical expertise.
+
+### Key Responsibilities:
+
+1. **Requirement Gathering and Analysis**:
+   - Work with stakeholders (traders, portfolio managers, risk managers) to understand business needs.
+   - Document detailed business requirements for software development.
+
+2. **Solution Design**:
+   - Collaborate with software developers and architects to design solutions that meet business needs.
+   - Ensure that the proposed solutions align with industry standards and regulatory requirements.
+
+3. **Project Management**:
+   - Coordinate project timelines, deliverables, and resources.
+   - Monitor project progress and make adjustments as necessary to ensure successful completion.
+
+4. **Testing and Quality Assurance**:
+   - Develop and execute test plans to ensure software meets business requirements.
+   - Identify and document defects and work with the development team to resolve them.
+
+5. **Implementation and Support**:
+   - Assist in the deployment of software solutions.
+   - Provide training and support to end-users.
+   - Troubleshoot and resolve issues post-implementation.
+
+6. **Data Analysis and Reporting**:
+   - Analyze financial data to support decision-making processes.
+   - Develop reports and dashboards for business users to monitor key metrics.
+
+### Skills and Qualifications:
+
+1. **Financial Knowledge**:
+   - Strong understanding of capital markets, financial instruments, and trading processes.
+   - Familiarity with regulatory requirements affecting capital markets.
+
+2. **Technical Skills**:
+   - Proficiency in SQL, data analysis tools, and financial modeling.
+   - Experience with software development methodologies (Agile, Scrum).
+   - Knowledge of programming languages (e.g., Python, Java) is a plus.
+
+3. **Analytical Skills**:
+   - Ability to analyze complex financial data and translate it into actionable insights.
+   - Strong problem-solving skills and attention to detail.
+
+4. **Communication and Interpersonal Skills**:
+   - Excellent written and verbal communication skills.
+   - Ability to work effectively with diverse teams and manage stakeholder expectations.
+
+5. **Project Management**:
+   - Strong organizational skills and the ability to manage multiple tasks and projects simultaneously.
+   - Experience with project management tools (e.g., JIRA, MS Project).
+
+### Typical Projects:
+
+- **Trading Platform Development**: Enhancing or developing trading platforms to improve user experience and increase efficiency.
+- **Risk Management Systems**: Implementing systems to monitor and manage financial risks.
+- **Regulatory Compliance**: Ensuring software solutions comply with evolving regulatory requirements.
+- **Data Analytics**: Building analytics tools to provide insights into trading performance and market trends.
+
+### Career Path:
+
+Starting as a Capital Markets Business Analyst, one can progress to roles such as:
+
+- Senior Business Analyst
+- Project Manager
+- Product Manager
+- Solutions Architect
+- Director of Business Analysis
+- Chief Technology Officer (CTO)
+
+### Conclusion:
+
+A Capital Markets Business Analyst in the software industry plays a crucial role in bridging the gap between financial business needs and technical solutions. The position requires a blend of financial acumen, technical expertise, and strong project management skills to successfully deliver software solutions that drive business value in the capital markets sector.
+
+----------------------==================================
+CFA
+### Overview of the CFA Program
+
+The Chartered Financial Analyst (CFA) program is a professional certification offered by the CFA Institute, designed to measure and certify the competence and integrity of financial analysts. It is one of the most respected and recognized investment management designations globally. The program consists of three levels of exams, each increasing in complexity and depth, covering a wide range of topics essential for investment and financial professionals.
+
+### CFA Exam Levels and Syllabus Breakdown
+
+#### **Level I**
+
+**Focus:** Basic knowledge and comprehension of investment tools and ethical standards.
+
+**Topics:**
+
+1. **Ethical and Professional Standards (15%)**
+   - Code of Ethics and Standards of Professional Conduct
+   - Global Investment Performance Standards (GIPS)
+
+2. **Quantitative Methods (10%)**
+   - Time Value of Money
+   - Probability and Statistics
+   - Hypothesis Testing
+   - Correlation and Regression
+
+3. **Economics (10%)**
+   - Microeconomics
+   - Macroeconomics
+   - International Trade and Capital Flows
+   - Currency Exchange Rates
+
+4. **Financial Reporting and Analysis (15%)**
+   - Financial Reporting Mechanics
+   - Financial Statement Analysis
+   - Inventories and Long-lived Assets
+   - Income Taxes
+   - Non-current (Long-term) Liabilities
+   - Financial Reporting Quality
+
+5. **Corporate Finance (10%)**
+   - Corporate Governance
+   - Capital Budgeting
+   - Cost of Capital
+   - Capital Structure
+   - Dividends and Share Repurchases
+
+6. **Equity Investments (11%)**
+   - Market Organization and Structure
+   - Security Markets
+   - Market Indices
+   - Market Efficiency
+   - Equity Securities
+   - Industry and Company Analysis
+
+7. **Fixed Income (11%)**
+   - Fixed-Income Securities Types and Characteristics
+   - Fixed-Income Markets and Instruments
+   - Bond Valuation
+   - Interest Rate Risk
+   - Credit Analysis
+
+8. **Derivatives (6%)**
+   - Derivative Markets and Instruments
+   - Forward Markets and Contracts
+   - Futures Markets and Contracts
+   - Option Markets and Contracts
+   - Swap Markets and Contracts
+
+9. **Alternative Investments (6%)**
+   - Types of Alternative Investments
+   - Real Estate
+   - Hedge Funds
+   - Private Equity
+   - Commodities
+
+10. **Portfolio Management and Wealth Planning (6%)**
+    - Portfolio Management: An Overview
+    - Risk Management
+    - Portfolio Planning and Construction
+
+#### **Level II**
+
+**Focus:** Application of investment tools and concepts with a focus on the valuation of various assets.
+
+**Topics:**
+
+1. **Ethical and Professional Standards (10-15%)**
+   - Application of the Code of Ethics and Standards of Professional Conduct
+   - Research Objectivity Standards
+
+2. **Quantitative Methods (5-10%)**
+   - Sampling and Estimation
+   - Hypothesis Testing
+   - Multiple Regression and Issues in Regression Analysis
+   - Time-Series Analysis
+
+3. **Economics (5-10%)**
+   - Economics and Investment Markets
+   - Currency Exchange Rates
+   - Economic Growth and the Investment Decision
+
+4. **Financial Reporting and Analysis (10-15%)**
+   - Intercorporate Investments
+   - Business Combinations
+   - Multinational Operations
+   - Analysis of Financial Institutions
+
+5. **Corporate Finance (5-10%)**
+   - Capital Budgeting
+   - Capital Structure
+   - Dividends and Share Repurchases
+   - Corporate Governance
+   - Mergers and Acquisitions
+
+6. **Equity Investments (10-15%)**
+   - Equity Valuation: Concepts and Basic Tools
+   - Industry and Company Analysis
+   - Equity Valuation: Applications and Processes
+
+7. **Fixed Income (10-15%)**
+   - Fixed-Income Securities Valuation
+   - Term Structure and Interest Rate Dynamics
+   - Credit Analysis and Credit Ratings
+   - Credit Default Swaps
+
+8. **Derivatives (5-10%)**
+   - Valuation of Forward Contracts
+   - Valuation of Futures Contracts
+   - Valuation of Options
+   - Swaps and Interest Rate Derivatives
+
+9. **Alternative Investments (5-10%)**
+   - Private Equity Valuation
+   - Real Estate Investments
+   - Hedge Fund Strategies
+   - Commodities
+
+10. **Portfolio Management and Wealth Planning (5-15%)**
+    - Portfolio Concepts
+    - Asset Allocation
+    - Portfolio Risk Management
+    - Measuring and Managing Market Risk
+
+#### **Level III**
+
+**Focus:** Synthesis of concepts and analytical methods for effective portfolio management and wealth planning.
+
+**Topics:**
+
+1. **Ethical and Professional Standards (10-15%)**
+   - Application of the Code of Ethics and Standards of Professional Conduct
+   - Case Studies
+
+2. **Behavioral Finance (5-10%)**
+   - Behavioral Finance Concepts
+   - Behavioral Biases of Individuals
+   - Behavioral Finance and Investment Processes
+
+3. **Private Wealth Management (10-15%)**
+   - Managing Individual Investor Portfolios
+   - Taxes and Private Wealth Management
+   - Estate Planning
+
+4. **Institutional Wealth Management (5-15%)**
+   - Managing Institutional Investor Portfolios
+   - Pension Plans
+   - Foundations and Endowments
+   - Sovereign Wealth Funds
+
+5. **Capital Market Expectations (5-15%)**
+   - Capital Market Expectations: Framework and Macro Considerations
+   - Forecasting Asset Class Returns
+
+6. **Asset Allocation (5-15%)**
+   - Principles of Asset Allocation
+   - Asset Allocation with Real-World Constraints
+   - Global Asset Allocation
+
+7. **Fixed Income Portfolio Management (10-20%)**
+   - Managing Fixed-Income Portfolios
+   - Liability-Driven and Index-Based Strategies
+   - Yield Curve Strategies
+
+8. **Equity Portfolio Management (10-20%)**
+   - Managing Equity Portfolios
+   - Equity Portfolio Strategies
+   - Passive Equity Investing
+   - Active Equity Investing
+
+9. **Derivative Portfolio Management (5-10%)**
+   - Derivatives and Their Use in Portfolio Management
+   - Strategies with Options and Futures
+
+10. **Alternative Investments (5-15%)**
+    - Alternative Investments Portfolio Management
+    - Real Estate
+    - Hedge Funds
+    - Private Equity
+
+11. **Risk Management (10-20%)**
+    - Risk Management Framework
+    - Risk Management Applications of Derivatives
+
+12. **Trading, Monitoring, and Rebalancing (5-10%)**
+    - Trading Costs and Electronic Markets
+    - Portfolio Monitoring and Rebalancing
+
+13. **Performance Evaluation and Attribution (5-10%)**
+    - Performance Measurement
+    - Performance Attribution
+    - Performance Appraisal
+
+### Conclusion
+
+The CFA program covers a comprehensive range of topics critical for investment professionals. Each level of the exam builds upon the previous one, moving from basic concepts and tools to advanced analytical techniques and real-world application. Completing the CFA program demonstrates a high level of competence and integrity, which is highly valued in the finance industry.
+-----------------
+Excel
+Microsoft Excel provides a wide range of formulas and functions that can be used for data analysis, manipulation, and presentation. Below is a comprehensive list of some of the most commonly used Excel formulas, categorized by their functionality:
+
+### Arithmetic and Basic Functions
+
+- `SUM(number1, [number2], ...)`: Adds all the numbers in a range of cells.
+- `SUMIF(range, criteria, [sum_range])`: Adds the cells specified by a given condition or criteria.
+- `SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)`: Adds the cells specified by a set of conditions or criteria.
+- `AVERAGE(number1, [number2], ...)`: Returns the average of the numbers.
+- `AVERAGEIF(range, criteria, [average_range])`: Returns the average of the cells that meet a given condition.
+- `AVERAGEIFS(average_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)`: Returns the average of all cells that meet multiple criteria.
+- `MIN(number1, [number2], ...)`: Returns the smallest number.
+- `MAX(number1, [number2], ...)`: Returns the largest number.
+- `PRODUCT(number1, [number2], ...)`: Multiplies all the numbers given as arguments.
+- `QUOTIENT(numerator, denominator)`: Returns the integer portion of a division.
+- `MOD(number, divisor)`: Returns the remainder after a number is divided by a divisor.
+- `ROUND(number, num_digits)`: Rounds a number to a specified number of digits.
+- `ROUNDDOWN(number, num_digits)`: Rounds a number down, towards zero.
+- `ROUNDUP(number, num_digits)`: Rounds a number up, away from zero.
+- `CEILING(number, significance)`: Rounds a number up, to the nearest multiple of significance.
+- `FLOOR(number, significance)`: Rounds a number down, to the nearest multiple of significance.
+- `POWER(number, power)`: Returns the result of a number raised to a power.
+- `SQRT(number)`: Returns the square root of a number.
+
+### Logical Functions
+
+- `IF(logical_test, value_if_true, value_if_false)`: Returns one value if a condition is true and another value if it is false.
+- `IFERROR(value, value_if_error)`: Returns a value you specify if a formula evaluates to an error; otherwise, returns the result of the formula.
+- `AND(logical1, [logical2], ...)`: Returns TRUE if all arguments are TRUE.
+- `OR(logical1, [logical2], ...)`: Returns TRUE if any argument is TRUE.
+- `NOT(logical)`: Reverses the logic of its argument.
+- `TRUE()`: Returns the logical value TRUE.
+- `FALSE()`: Returns the logical value FALSE.
+
+### Text Functions
+
+- `CONCATENATE(text1, [text2], ...)`: Joins several text strings into one text string (deprecated, use `CONCAT` or `TEXTJOIN`).
+- `CONCAT(text1, [text2], ...)`: Joins several text strings into one text string.
+- `TEXTJOIN(delimiter, ignore_empty, text1, [text2], ...)`: Joins several text strings into one text string with a delimiter.
+- `LEFT(text, [num_chars])`: Returns the specified number of characters from the start of a text string.
+- `RIGHT(text, [num_chars])`: Returns the specified number of characters from the end of a text string.
+- `MID(text, start_num, num_chars)`: Returns a specific number of characters from a text string, starting at the position you specify.
+- `LEN(text)`: Returns the number of characters in a text string.
+- `TRIM(text)`: Removes all spaces from a text string except for single spaces between words.
+- `UPPER(text)`: Converts a text string to all uppercase letters.
+- `LOWER(text)`: Converts a text string to all lowercase letters.
+- `PROPER(text)`: Capitalizes the first letter of each word in a text string.
+- `REPLACE(old_text, start_num, num_chars, new_text)`: Replaces part of a text string with a different text string.
+- `SUBSTITUTE(text, old_text, new_text, [instance_num])`: Substitutes new text for old text in a text string.
+- `FIND(find_text, within_text, [start_num])`: Returns the starting position of one text string within another text string (case-sensitive).
+- `SEARCH(find_text, within_text, [start_num])`: Returns the starting position of one text string within another text string (not case-sensitive).
+- `TEXT(value, format_text)`: Converts a value to text in a specific number format.
+
+### Date and Time Functions
+
+- `TODAY()`: Returns the current date.
+- `NOW()`: Returns the current date and time.
+- `DATE(year, month, day)`: Returns the serial number of a specific date.
+- `DATEVALUE(date_text)`: Converts a date in the form of text to a serial number.
+- `DAY(serial_number)`: Converts a serial number to a day of the month.
+- `MONTH(serial_number)`: Converts a serial number to a month.
+- `YEAR(serial_number)`: Converts a serial number to a year.
+- `HOUR(serial_number)`: Converts a serial number to an hour.
+- `MINUTE(serial_number)`: Converts a serial number to a minute.
+- `SECOND(serial_number)`: Converts a serial number to a second.
+- `WEEKDAY(serial_number, [return_type])`: Converts a serial number to a day of the week.
+- `WEEKNUM(serial_number, [return_type])`: Converts a serial number to a number representing where the week falls numerically with a year.
+- `WORKDAY(start_date, days, [holidays])`: Returns the serial number of the date before or after a specified number of workdays.
+- `NETWORKDAYS(start_date, end_date, [holidays])`: Returns the number of whole workdays between two dates.
+- `EDATE(start_date, months)`: Returns the serial number of the date that is the indicated number of months before or after the start date.
+- `EOMONTH(start_date, months)`: Returns the serial number of the last day of the month before or after a specified number of months.
+
+### Lookup and Reference Functions
+
+- `VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])`: Looks for a value in the first column of a table and returns a value in the same row from another column.
+- `HLOOKUP(lookup_value, table_array, row_index_num, [range_lookup])`: Looks for a value in the top row of a table and returns a value in the same column from a specified row.
+- `LOOKUP(lookup_value, lookup_vector, [result_vector])`: Looks for a value either from a one-row or one-column range or from an array.
+- `MATCH(lookup_value, lookup_array, [match_type])`: Returns the relative position of an item in an array that matches a specified value.
+- `INDEX(array, row_num, [column_num])`: Returns the value of an element in a table or array, selected by the row and column number indexes.
+- `OFFSET(reference, rows, cols, [height], [width])`: Returns a reference to a range that is a specified number of rows and columns from a cell or range of cells.
+- `INDIRECT(ref_text, [a1])`: Returns the reference specified by a text string.
+- `CHOOSE(index_num, value1, [value2], ...)`: Returns a value from a list of values based on the position number.
+
+### Financial Functions
+
+- `PMT(rate, nper, pv, [fv], [type])`: Calculates the payment for a loan based on constant payments and a constant interest rate.
+- `FV(rate, nper, pmt, [pv], [type])`: Returns the future value of an investment based on periodic, constant payments and a constant interest rate.
+- `PV(rate, nper, pmt, [fv], [type])`: Returns the present value of an investment.
+- `NPV(rate, value1, [value2], ...)`: Returns the net present value of an investment based on a series of periodic cash flows and a discount rate.
+- `IRR(values, [guess])`: Returns the internal rate of return for a series of cash flows.
+- `XIRR(values, dates, [guess])`: Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic.
+- `MIRR(values, finance_rate, reinvest_rate)`: Returns the modified internal rate of return for a series of periodic cash flows.
+
+### Statistical Functions
+
+- `COUNT(value1, [value2], ...)`: Counts the number of cells that contain numbers.
+- `COUNTA(value1, [value2], ...)`: Counts the number of cells that are not empty.
+- `COUNTBLANK(range)`: Counts the number of empty cells in a specified range of cells.
+- `COUNTIF(range, criteria)`: Counts the number of cells within a range that meet a single condition.
+- `COUNTIFS(range1, criteria1, [range2, criteria2], ...)`: Counts the number of cells within a range that meet multiple criteria.
+- `AVERAGEA(value1, [value2], ...)`: Returns the average of the values in the list of arguments, including text and logical values.
+- `MEDIAN(number1, [number2], ...)`: Returns the median of the given numbers.
+- `MODE.SNGL(number1, [number2], ...)`: Returns the most frequently occurring value
+
+ in a range of data.
+- `STDEV.S(number1, [number2], ...)`: Estimates the standard deviation based on a sample.
+- `VAR.S(number1, [number2], ...)`: Estimates variance based on a sample.
+
+### Database Functions
+
+- `DAVERAGE(database, field, criteria)`: Returns the average of selected database entries.
+- `DCOUNT(database, field, criteria)`: Counts the cells that contain numbers in a database.
+- `DCOUNTA(database, field, criteria)`: Counts nonblank cells in a database.
+- `DMAX(database, field, criteria)`: Returns the maximum value from selected database entries.
+- `DMIN(database, field, criteria)`: Returns the minimum value from selected database entries.
+- `DSUM(database, field, criteria)`: Adds the numbers in the field column of records in the database that match the criteria.
+
+### Array Formulas
+
+- `TRANSPOSE(array)`: Returns the transpose of an array.
+- `MMULT(array1, array2)`: Returns the matrix product of two arrays.
+- `MINVERSE(array)`: Returns the inverse matrix for the matrix stored in an array.
+- `FREQUENCY(data_array, bins_array)`: Returns a frequency distribution as a vertical array.
+
+### New Functions in Excel 2019/365
+
+- `UNIQUE(array, [by_col], [exactly_once])`: Returns a list of unique values in a list or range.
+- `SORT(array, [sort_index], [sort_order], [by_col])`: Sorts the contents of a range or array.
+- `SORTBY(array, by_array1, [sort_order1], [by_array2, sort_order2], ...)`: Sorts the contents of a range or array based on the values in a corresponding range or array.
+- `FILTER(array, include, [if_empty])`: Filters a range or array based on a condition.
+- `SEQUENCE(rows, [columns], [start], [step])`: Generates a list of sequential numbers in an array.
+- `RANDARRAY([rows], [columns], [min], [max], [whole_number])`: Returns an array of random numbers.
+- `XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])`: Searches a range or an array and returns an item corresponding to the first match it finds. If a match doesn’t exist, then XLOOKUP can return the closest (approximate) match.
+
+This list covers many of the essential and commonly used Excel formulas, but Excel has numerous other functions to explore, each with its unique applications. The specific version of Excel you are using may also have additional or updated functions.
+------------------============================
+
+
+
+
+============================================================================================
+Java coding interview questions.
+https://www.digitalocean.com/community/tutorials/java-programming-interview-questions
+
+https://www.geeksforgeeks.org/java-programming-examples/
+
+Sql query questions
+https://www.edureka.co/blog/interview-questions/sql-query-interview-questions
+https://www.geeksforgeeks.org/sql-query-interview-questions/
+https://www.toptal.com/sql/interview-questions
+============================================================================================
+Microsoft Office https://github.com/Azure/azure-openai-samples.git 
+• Microsoft Access
+• Microsoft Excel
+• Microsoft Lens (mobile)
+• Microsoft OneNote
+• Microsoft Outlook
+• Microsoft PowerPoint
+• Microsoft Project
+• Microsoft Publisher
+• Microsoft Sway
+• Microsoft Visio
+• Microsoft Word
+• Office Mobile
+• Office Remote (mobile)
+• Microsoft Power Platform
+• Microsoft Power BI
+• Power Apps
+• Power Automate
+• Power Automate Desktop
+• Power Virtual Agents
+• Microsoft Dynamics
+• Microsoft Dynamics 365 Finance
+• Microsoft Dynamics 365 Business Central (previously Dynamics NAV, Navision)
+• Microsoft Dynamics 365 Sales (previously Microsoft Dynamics CRM)
+• Discontinued: Microsoft Dynamics C5, Microsoft Dynamics SL, Microsoft Dynamics GP superseded by Business Central
+• Others
+• Microsoft Teams
+• Microsoft To Do
+• Microsoft SwiftKey
+• Microsoft Autofill
+• Discontinued: Microsoft Expression Studio
+Discontinued: Microsoft Works
+
+-------------------------
+Finding a platform where you can access a wide variety of file types, including programming languages, document files, images, audio, video, compressed files, data files, configuration files, web files, and system files, can be quite useful for various purposes such as development, testing, and learning.
+
+### Platforms and Resources
+
+1. **GitHub**
+   - **Description**: A popular platform for version control and collaboration, GitHub hosts millions of repositories containing code in various programming languages, documentation, configuration files, and more.
+   - **URL**: [https://github.com](https://github.com)
+
+2. **SourceForge**
+   - **Description**: Another platform for hosting and distributing open-source software projects. It includes various file types used in different software projects.
+   - **URL**: [https://sourceforge.net](https://sourceforge.net)
+
+3. **Archive.org**
+   - **Description**: The Internet Archive offers a vast collection of digital files, including documents, images, audio, video, and more.
+   - **URL**: [https://archive.org](https://archive.org)
+
+4. **Google Drive and Dropbox**
+   - **Description**: Cloud storage services where users often share a wide variety of file types. Public folders or shared links can give you access to diverse file types.
+   - **Google Drive URL**: [https://drive.google.com](https://drive.google.com)
+   - **Dropbox URL**: [https://www.dropbox.com](https://www.dropbox.com)
+
+5. **File Examples**
+   - **Description**: A website that provides downloadable examples of many different file types, useful for testing and educational purposes.
+   - **URL**: [https://file-examples.com](https://file-examples.com)
+
+6. **Stack Overflow**
+   - **Description**: A Q&A platform where developers share code snippets, scripts, and configuration files. It’s a good place to find examples of specific programming tasks and file types.
+   - **URL**: [https://stackoverflow.com](https://stackoverflow.com)
+
+7. **W3Schools**
+   - **Description**: Provides tutorials and examples of web-related files such as HTML, CSS, JavaScript, XML, JSON, and more.
+   - **URL**: [https://www.w3schools.com](https://www.w3schools.com)
+
+8. **Kaggle**
+   - **Description**: A platform for data science competitions, which provides datasets in various formats such as CSV, JSON, and more.
+   - **URL**: [https://www.kaggle.com](https://www.kaggle.com)
+
+### How to Use These Platforms
+
+- **Search**: Use the search functionality on these platforms to find specific types of files. For example, on GitHub, you can search for repositories or files using specific file extensions.
+- **Explore**: Browse through popular repositories, projects, or shared folders to discover a wide range of file types.
+- **Download**: Many of these platforms allow you to download files directly for your personal use.
+- **Clone or Fork**: On platforms like GitHub, you can clone or fork repositories to your local machine to access all the files within a project.
+
+### Example Search Queries
+
+- **GitHub**: Use queries like `extension:py` to find Python files, or `extension:json` to find JSON files.
+- **Archive.org**: Search for terms like "JPEG images" or "PDF documents".
+- **File Examples**: Browse through categories such as "Documents", "Images", "Audio", etc.
+
+By utilizing these platforms, you should be able to find a comprehensive range of file types for various uses.
